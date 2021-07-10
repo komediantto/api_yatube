@@ -38,17 +38,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts',
+    'api',
+    'rest_framework.authtoken',
+    'rest_framework.routers',
+    'rest_framework',
+    'djoser'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_URLS_REGEX = r'^/api/.*$'
 
 ROOT_URLCONF = 'yatube_api.urls'
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
@@ -121,3 +131,13 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}

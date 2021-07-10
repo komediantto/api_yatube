@@ -10,6 +10,10 @@ class PostAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'post', 'text', 'created', 'author')
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Group)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)
